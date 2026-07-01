@@ -14,7 +14,7 @@ export default function CrudDashboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Use Vercel Environment Variable for production, fallback to localhost for development
+  // Use Vercel Environment Variable for production, fallback to localhost for development /
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
   // READ (GET)
