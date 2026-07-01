@@ -46,24 +46,33 @@ export default function CrudDashboard() {
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!code || !name) return;
-    
-    await fetch(`${API_URL}/clients/`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ClientCode: code, ClientName: name }),
-    });
-    
-    setCode("");
-    setName("");
-    fetchClients(); // Refresh list
+    try {
+      const res = await fetch(`${API_URL}/clients/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ClientCode: code, ClientName: name }),
+      });
+      if (!res.ok) throw new Error('Failed to create client');
+      setCode('');
+      setName('');
+      fetchClients();
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
+
 
   // DELETE (DELETE)
   const handleDelete = async (clientCode: string) => {
-    await fetch(`${API_URL}/clients/${clientCode}`, {
-      method: "DELETE",
-    });
-    fetchClients(); // Refresh list
+    try {
+      const res = await fetch(`${API_URL}/clients/${clientCode}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error('Failed to delete client');
+      fetchClients(); // Refresh list
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   return (
