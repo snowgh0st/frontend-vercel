@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 interface Client {
   ClientCode: string;
   ClientName: string;
+  Matter_ID: string;
 }
 
 export default function CrudDashboard() {
   const [clients, setClients] = useState<Client[]>([]);
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
+  const [matterId, setMatterId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,16 +47,17 @@ export default function CrudDashboard() {
   // CREATE (POST)
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!code || !name) return;
+    if (!code || !name || !matterId) return;
     try {
       const res = await fetch(`${API_URL}/clients/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ClientCode: code, ClientName: name }),
+        body: JSON.stringify({ ClientCode: code, ClientName: name, Matter_ID: matterId }),
       });
       if (!res.ok) throw new Error('Failed to create client');
       setCode('');
       setName('');
+      setMatterId('');
       fetchClients();
     } catch (err: any) {
       setError(err.message);
@@ -77,7 +80,7 @@ export default function CrudDashboard() {
 
   return (
     <main className="p-8 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Client Management System</h1>
+      <h1 className="text-2xl font-bold mb-6">Laurel Client Management System</h1>
       {/* CREATE FORM */}
       <form onSubmit={handleCreate} className="mb-8 flex gap-4 p-4 border rounded shadow">
         <input 
@@ -94,6 +97,13 @@ export default function CrudDashboard() {
           onChange={(e) => setName(e.target.value)}
           className="border p-2 rounded"
         />
+        <input 
+          type="text"
+          placeholder="Matter ID"
+          value={matterId}
+          onChange={(e) => setMatterId(e.target.value)}
+          className="border p-2 rounded"
+        />
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">
           Add Client
         </button>
@@ -105,7 +115,7 @@ export default function CrudDashboard() {
       <ul>
         {clients.map((client) => (
           <li key={client.ClientCode} className="flex justify-between p-2 border-b">
-            {client.ClientName} ({client.ClientCode})
+            {client.ClientName} ({client.ClientCode}) - Matter ID: {client.Matter_ID}
             <button 
               onClick={() => handleDelete(client.ClientCode)}
               className="text-red-500 hover:underline"
