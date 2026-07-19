@@ -2,7 +2,11 @@
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-It connects to the APILegalDB repo in GH which hosts the fastAPI to run CRUD operations against a PostgreSQL DB hosted in GCP.
+It connects to the APILegalDB repo in GH which hosts the fastAPI to run CRUD operations against a PostgreSQL DB hosted in GCP. 
+
+You deployed this front end to Vercel and the homepage essentially shows a list of Clients in the Laurel DB (ClientCode, ClientName, MatterID) and allows you to delete or add a client.
+
+NOTE: This front-end allows you to add or delete clients one by one but you also built an Azure Logic App which polled an Azure Blob bucket for file drops from the PMS PostgreSQL DB, which you had to set up PostgreSQL triggers to detect when new DB records were added and to create a CSV file to send from GCP PostgreSQL to the Azure Blob Bucket.
 
 ## Getting Started
 
