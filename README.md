@@ -27,8 +27,8 @@ This project provides a simple and effective experience for viewing, adding, and
 This repository is just the frontend piece of a three-component system:
 
 1. Frontend (this repository) - the user interface built with Next.js 💻
-2. Backend API - available at https://github.com/snowgh0st/crud-app-backend-api-python ⚙️
-3. Webhook service - available at https://github.com/snowgh0st/crud-app-webhook-nodejs 🔔
+2. Backend API - available at https://github.com/snowgh0st/fastapi-azure-app-service ⚙️
+3. Webhook service - available at https://github.com/snowgh0st/webhook-azure-function 🔔
 
 Together, these components make up the complete app experience. 🧠
 
